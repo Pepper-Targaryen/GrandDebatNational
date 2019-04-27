@@ -14,6 +14,7 @@ import string
 import stop_words
 from sklearn.cluster import KMeans
 import pandas as pd
+import random
 
 """
 To use the two packages of nltk, do 
@@ -43,7 +44,7 @@ def tokenize(text):
     words_prefect = [stemmer.stem(word) for word in words_no_prefix if not word.isdigit()]
     return words_prefect
 
-df = pd.read_csv("granddebat.fr/DEMOCRATIE_ET_CITOYENNETE.csv", low_memory=False)
+df = pd.read_csv("data/DEMOCRATIE_ET_CITOYENNETE.csv", low_memory=False)
 
 #Use this of you only want to do one certain question
 '''
@@ -59,6 +60,8 @@ answers = answers.astype(str)
 answers = answers.apply(" ".join, axis =1)
 answers = answers.str.lower()
 answers = answers.values.tolist()
+answers = random.sample(answers, k=3000)
+
 
 #Vectorize our text
 custom_stop_words = get_stop_words()
